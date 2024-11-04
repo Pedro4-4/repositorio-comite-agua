@@ -88,7 +88,7 @@
                               <br>
                               <br>
                                 <div class="col-lg-4  col-xs-12 mb-3">
-                                  <label for="saldo" class="form-label">Saldo Anterior</label>
+                                  <label for="saldo" class="form-label">Saldo Anteriorrrrrrrr</label>
                                   <input id="saldo" name="saldo" type="text" class="form-control">
                               </div>
                               <div class="col-lg-4  col-xs-12 mb-3">
