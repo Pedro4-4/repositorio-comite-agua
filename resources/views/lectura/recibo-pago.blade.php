@@ -82,7 +82,7 @@
             <p><span>Lectura Actual:</span><span>{{$lectura->lectura_actual}} m³</span></p>
             <p><span>Lectura Anterior</span><span>{{$lectura->lectura_anterior}} m³</span></p>
             <p><span>Consumo de Agua:</span><span>{{$lectura->monto}} m³</span></p>
-
+            <p><span>Cobro mensual:</span><span> Q{{ number_format($lectura->total, 2) }} </span></p>
 
 
         @else
@@ -94,8 +94,10 @@
 
     
     <div class="summary">
-        <h2 style="margin-top: 30px;" ><span><strong>Total a Pagar:</strong></span><span><strong>Q{{ number_format($lectura->total, 2) }}</strong></span></h2>
-       
+        {{-- <h2 style="margin-top: 30px;" ><span><strong>Total a Pagar:</strong></span><span><strong>Q{{ $cliente->contadores->first()->lecturas_sum ? $cliente->contadores->first()->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
+        {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong>Q{{$lectura->contador ? $lectura->contador->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
+        {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong>Q{{$lectura->contador ? $lectura->contador->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
+    
     </div>
 
     <p></p>

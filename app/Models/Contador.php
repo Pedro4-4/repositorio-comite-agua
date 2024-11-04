@@ -29,6 +29,13 @@ class Contador extends Model
             ->where('estado', 0)
             ->groupBy('contador_id');
     }
+    public function lecturas_sum_pagadas()
+    {
+        return $this->hasOne(Lectura::class)
+            ->selectRaw('contador_id, SUM(abono) as total')
+            ->where('estado', 1)
+            ->groupBy('contador_id');
+    }
     public function sector()
     {
         return $this->belongsTo(Sector::class, 'sector_id');

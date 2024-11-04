@@ -36,25 +36,25 @@
                                 <!-- DPI -->
                                 <div class="mb-3">
                                     <label for="dpi" class="form-label">No. DPI</label>
-                                    <input id="dpi" name="dpi" type="text" class="form-control" required>
+                                    <input id="dpi" name="dpi" type="text" class="form-control">
                                 </div>
 
                                 <!-- Teléfono -->
                                 <div class="mb-3">
                                     <label for="telefono" class="form-label">No. Teléfono</label>
-                                    <input id="telefono" name="telefono" type="text" class="form-control" required>
+                                    <input id="telefono" name="telefono" type="text" class="form-control">
                                 </div>
 
                                 <!-- Dirección -->
                                 <div class="mb-3">
                                     <label for="direccion" class="form-label">Dirección</label>
-                                    <input id="direccion" name="direccion" type="text" class="form-control" required>
+                                    <input id="direccion" name="direccion" type="text" class="form-control" >
                                 </div>
 
                                 <!-- Observaciones -->
                                 <div class="mb-3">
                                     <label for="observacion" class="form-label">Observaciones</label>
-                                    <input id="observacion" name="observacion" type="text" class="form-control" required>
+                                    <input id="observacion" name="observacion" type="text" class="form-control" >
                                 </div>
 
                                 <!-- Botón Guardar -->

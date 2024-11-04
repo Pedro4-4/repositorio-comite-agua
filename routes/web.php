@@ -9,6 +9,7 @@ use App\Http\Controllers\LecturaController;
 use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\GastoController;
 use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\PagoController;
 
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/report-usuarios', [ReporteController::class, 'getReporteUsuario'])->name('reporte.usuario');
     Route::get('/report-morosos', [ReporteController::class, 'getReporteMoroso'])->name('reporte.moroso');
 
+    //RUTAS PAGOS
+    Route::get('/pago/{id}', [PagoController::class, 'index'])->name('pago.index');
+    Route::post('/pago/{id}', [PagoController::class, 'registrar'])->name('pago.registrar');
 
 });
 

@@ -241,3 +241,42 @@
 </script>
 
 </body>
+
+                                            {{-- Boton de registrar pago --}}
+<script>
+$(document).ready(function() {
+    $('.registrar-pago').on('click', function(event) {
+        event.preventDefault(); // Evitar redirección
+
+        // Obtener el ID de la lectura desde el botón
+        const lecturaId = $(this).data('id');
+
+        // Solicitar el monto del abono
+        const abono = prompt("Ingrese el monto a abonar:");
+
+        if (abono) {
+            // Realizar la petición AJAX
+            $.ajax({
+                url: `/pago/${lecturaId}`,
+                type: 'POST',
+                data: {
+                    abono: abono,
+                    nota: 'Descripción del pago', // Puedes ajustar la descripción según necesites
+                    _token: '{{ csrf_token() }}' // Reemplaza con la variable de tu vista
+                },
+                success: function(response) {
+                    if (response.status) {
+                        alert(response.message);
+                        // Aquí puedes recargar la página o actualizar la vista si es necesario
+                    } else {
+                        alert('Error al registrar el pago');
+                    }
+                },
+                error: function(error) {
+                    alert('Hubo un problema al registrar el pago');
+                }
+            });
+        }
+    });
+});
+</script>

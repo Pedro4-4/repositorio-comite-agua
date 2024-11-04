@@ -83,10 +83,10 @@
                                 </div>
 
                                  <!-- valor exceso -->
-                                 <div class="form-group mb-4">
+                                 {{-- <div class="form-group mb-4">
                                     <label for="valor_exceso" class="form-label">Valor exceso</label>
                                     <input type="text" class="form-control" value="{{ $lectura->valor_exceso}}"  id="valor_exceso" name="valor_exceso"disabled>
-                                </div>
+                                </div> --}}
 
                                  <!-- total -->
                                  <div class="form-group mb-4">

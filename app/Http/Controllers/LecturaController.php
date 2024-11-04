@@ -40,9 +40,9 @@ class LecturaController extends Controller
      */
     public function store(Request $request)
     {
-      
+        // dd($request->saldo);
         $lectura = new Lectura;
-
+       
         $lectura->contador_id = $request->contador;
         $lectura->precio_id = $request->precio_id;
         $lectura->lectura_anterior = $request->lectura_anterior;
@@ -55,16 +55,13 @@ class LecturaController extends Controller
         $lectura->nota = $request->nota;
         $lectura->estado = $request->tipo_recibo;
         $lectura->total = $request->total;
-
-        
         $lectura->save();
-        
         $monto_deuda = Lectura::where('contador_id', $request->contador)->where('estado', 0)->sum('saldo');
         $monto = $lectura->saldo == 0 ?  $request->abono - $request->total : 0;
         
 
 
-        if($monto_deuda > 0 && $monto > 0){
+        if($monto_deuda > 0 && $monto > 0 && $request->abono > 0 ){
             $lecturas = Lectura::where('contador_id', $request->contador)->where('estado', 0)->orderBy('id','desc')->get();
             
             foreach ($lecturas as $lectura) {
@@ -99,10 +96,10 @@ class LecturaController extends Controller
 
         $lectura = Lectura::find($lectura->id);
         if($lectura->estado == 1){
-            return view('lectura.recibo-pago', ['lectura' => $lectura]);
+            return view('lectura.recibo-pago', ['lectura' => $lectura, 'monto_deuda' => $request->saldo]);
         }else{
 
-            return view('lectura.recibo-cobro', ['lectura' => $lectura]);
+            return view('lectura.recibo-cobro', ['lectura' => $lectura, 'monto_deuda' => $request->saldo]);
         }
         // return redirect('/lecturas');
     }
@@ -117,17 +114,31 @@ class LecturaController extends Controller
      * Display the specified resource.
      */
 
-     public function getReciboCobro(string $id)
+    public function getReciboCobro(string $id)
     {   
         $lectura = Lectura::find($id);
-        return view('lectura.recibo-cobro', ['lectura' => $lectura]);
+        $cliente = $lectura->contador->cliente;
+        $monto_deuda = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->sum('saldo');
+        
+        
+     
+        return view('lectura.recibo-cobro', ['lectura' => $lectura, 'cliente' => $cliente, 'monto_deuda' => $monto_deuda]);
+    
     }
+  
+    
+
 
     public function getReciboPago(string $id)
     {
        
         $lectura = Lectura::find($id);
-        return view('lectura.recibo-pago', ['lectura' => $lectura]);
+        $cliente = $lectura->contador->cliente;
+        $monto_deuda = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->sum('saldo');
+
+        
+        // $contador = $lectura->cliente->contador;
+        return view('lectura.recibo-pago', ['lectura' => $lectura, 'cliente' => $cliente, 'monto_deuda' => $monto_deuda]);
 
     }
 

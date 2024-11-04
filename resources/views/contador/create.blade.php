@@ -48,7 +48,7 @@
                               <!-- Dirección -->
                               <div class="mb-3">
                                 <label for="direccion" class="form-label">Dirección</label>
-                                <input id="direccion" name="direccion" type="text" class="form-control" required>
+                                <input id="direccion" name="direccion" type="text" class="form-control" >
                             </div>
 
                               <!-- Precio -->
