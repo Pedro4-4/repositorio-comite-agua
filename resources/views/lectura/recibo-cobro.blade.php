@@ -12,10 +12,12 @@
             padding: 0;
         }
         .container {
-            width: 280px; /* Ancho típico para impresoras térmicas */
+            width: 77mm; /* Ancho típico para impresoras térmicas */
+            height: 140mm;
             margin: 0 auto;
             padding: 10px;
             border: 1px solid #000;
+            box-sizing: border-box;
         }
         h1, h2, h3 {
             text-align: center;
