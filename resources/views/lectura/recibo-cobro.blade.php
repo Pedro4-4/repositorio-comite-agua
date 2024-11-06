@@ -16,6 +16,7 @@
             margin: 0 auto;
             padding: 10px;
             border: 1px solid #000;
+            box-sizing: border-box;
         }
         h1, h2, h3 {
             text-align: center;
