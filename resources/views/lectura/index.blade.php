@@ -124,7 +124,7 @@
     </div>
 </x-app-layout>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#imprimirTabla').on('click', function() {
             // Crear una ventana nueva para imprimir
@@ -152,7 +152,7 @@
             // ventanaImpresion.close();
         });
     });
-</script>
+</script> --}}
 
 <script>
     
@@ -213,6 +213,8 @@
                 var url = "/imprimir_recibo_cobro/" + reciboId;
                 window.open(url, '_blank');
          } 
+        
+       
 
 
         $(document).ready(function(){

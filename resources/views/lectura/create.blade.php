@@ -80,7 +80,7 @@
                                 </div>
   
                                 <div class="col-lg-4  col-xs-12 mb-3">
-                                  <label for="total" class="form-label">Total cobro mensual</label>
+                                  <label for="total" class="form-label">Cobro mensual</label>
                                   <input readonly id="total" name="total" type="text" class="form-control" style="border-color: rgb(2, 2, 30);"   required>
                                 </div>
   
@@ -97,7 +97,7 @@
                                   <input id="abono" name="abono" type="text" class="form-control">
                               </div>
                               <div class="col-lg-4  col-xs-12 mb-3">
-                                <label for="saldo_actual_fijo" class="form-label">Saldo actual</label>
+                                <label for="saldo_actual_fijo" class="form-label">Total a pagar</label>
                                 <input id="saldo_actual_fijo" name="saldo_actual_fijo" type="text" class="form-control" readonly>
                             </div> 
                             {{-- <label for="saldo_actual" class="form-label">Saldo actual - Abono</label>

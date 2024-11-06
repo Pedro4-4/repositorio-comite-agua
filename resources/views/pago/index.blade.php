@@ -35,7 +35,7 @@
 
 </x-app-layout>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#imprimirTabla').on('click', function() {
             // Crear una ventana nueva para imprimir
@@ -63,7 +63,7 @@
             // ventanaImpresion.close();
         });
     });
-</script>
+</script> --}}
 
 <script>
 

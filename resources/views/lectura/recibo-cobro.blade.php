@@ -62,7 +62,7 @@
         <p><strong>Recibo #:</strong> {{ str_pad($lectura->id, 6, 0, STR_PAD_LEFT) }}</p>
         <p><strong>Fecha:</strong> {{ $lectura->created_at->locale('es')->translatedFormat('d F Y') }}</p>
         <p><strong>Usuario:</strong> {{ $lectura->contador->cliente->nombre }} {{ $lectura->contador->cliente->apellido }}</p>
-        <p><strong>Dirección:</strong> {{ $lectura->contador->direccion }}</p>
+        {{-- <p><strong>Dirección:</strong> {{ $lectura->contador->direccion }}</p> --}}
         <p><strong>Sector:</strong> {{ $lectura->contador->sector->nombre }}</p>
     </div>
 
@@ -84,20 +84,17 @@
     </div>
 
     <div class="summary">
-        {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong> Q{{ $cliente->contadores->first()->lecturas_sum ? $clie->contadores->first()->lecturas_sum->saldo : 0 }}</strong></span></h2>       --}}
-        <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong> Q{{ number_format($saldo_actual_fijo, 2) }}</strong></span></h2>
-        {{-- <h3 style="margin-top: 10px;"><span><strong>Total Abonado:</strong></span><span><strong> Q{{ number_format($abono, 2) }}</strong></span></h3> --}}
         
-      {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong>Q{{$monto}}</strong></span></h2> --}}
-   
+        <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong> Q{{ number_format($saldo_actual_fijo, 2) }}</strong></span></h2>
+          
     </div>
     
 
-    <div class="footer" style="margin-top: 40px;">
+    <div class="footer" style="margin-top: 20px;">
         <p>Aviso importante:</p>
         <p>1. Debe cancelar con el tesorero del Comité de Agua Cantón Bethania CODAGUACB</p>
         <p>2. Todo usuario al atrasarse con 4 meses de pago le será suspendido el servicio sin previo aviso</p>
-        <p>Gracias por su pago.</p>
+        <p>Por favor realizar su pago lo antes posible.</p>
     </div>
 </div>
 

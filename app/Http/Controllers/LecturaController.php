@@ -40,7 +40,8 @@ class LecturaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->saldo);
+    //     // dd($request->saldo);
+        
         $lectura = new Lectura;
 
         $lectura->contador_id = $request->contador;
@@ -48,7 +49,7 @@ class LecturaController extends Controller
         $lectura->lectura_anterior = $request->lectura_anterior;
         $lectura->lectura_actual = $request->lectura_actual;
         $lectura->monto = $request->monto;
-        $lectura->canon_mensual = $request->canon_mensual;
+        $lectura->canon_mensual = $request->canon_mensual;       
 
         $lectura->saldo = $request->abono >= $request->total ? 0 : $request->total - $request->abono;
         $lectura->abono = $lectura->saldo == 0 ? $request->total : $request->abono;
@@ -64,29 +65,31 @@ class LecturaController extends Controller
         if ($monto_deuda > 0 && $monto > 0 && $request->abono > 0) {
             $lecturas = Lectura::where('contador_id', $request->contador)->where('estado', 0)->orderBy('id', 'desc')->get();
 
-            foreach ($lecturas as $lectura) {
+         
+
+            foreach ($lecturas as $lecturaR) {
                 Log::debug('Este es un mensaje de log en Laravel', [
-                    'lectura_id' => $lectura->id,
+                    'lectura_id' => $lecturaR->id,
                     'monto' => $monto
                 ]);
-                if ($lectura->saldo > 0) {
-                    if ($monto >= $lectura->saldo) {
-                        $lectura->estado = 1;
-                        $monto = $monto - $lectura->saldo;
-                        $lectura->abono = $lectura->saldo;
-                        $lectura->saldo = 0;
-                        $lectura->save();
-                        Log::debug('devbig', [
+                if($lecturaR->saldo > 0){
+                    if($monto >= $lecturaR->saldo){
+                        $lecturaR->estado = 1;
+                        $monto = $monto - $lecturaR->saldo;
+                        $lecturaR->abono = $lecturaR->saldo;
+                        $lecturaR->saldo = 0;
+                        $lecturaR->save();
+                        Log::debug('devbig', [                      
                             'monto ddd' => $monto
                         ]);
-                    } else {
-                        $lectura->saldo = $lectura->saldo - $monto;
-                        $lectura->abono = $monto;
-                        $lectura->estado = 0;
-                        $lectura->save();
+                    }else{
+                        $lecturaR->saldo = $lecturaR->saldo - $monto;
+                        $lecturaR->abono = $monto;
+                        $lecturaR->estado = 0;
+                        $lecturaR->save();
                         $monto = 0;
                         break;
-                    }
+                    }                 
                 }
             }
         }
@@ -111,7 +114,10 @@ class LecturaController extends Controller
             ]);
         }
         // return redirect('/lecturas');
-    }
+     }
+    
+    
+
 
     public function getUltima(string $id)
     {

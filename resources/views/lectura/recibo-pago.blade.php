@@ -61,7 +61,7 @@
         <p><strong>Recibo #:</strong> {{ str_pad($lectura->id,6,0,0) }}</p>
         <p><strong>Fecha:</strong> {{ $lectura->created_at->locale('es')->translatedFormat('d F Y') }}</p>
         <p><strong>Usuario:</strong> {{$lectura->contador->cliente->nombre}}  {{$lectura->contador->cliente->apellido}}</p>
-        <p><strong>Dirección:</strong> {{$lectura->contador->direccion}}  </p>
+        {{-- <p><strong>Dirección:</strong> {{$lectura->contador->direccion}}  </p> --}}
         <p><strong>Sector:</strong> {{$lectura->contador->sector->nombre}}  </p>
     </div>
 
