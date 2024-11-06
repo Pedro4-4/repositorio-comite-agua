@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 
 class PagoController extends Controller
+
 {
     /**
      * Muestra la vista de pagos para una lectura específica.

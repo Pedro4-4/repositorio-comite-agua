@@ -11,6 +11,7 @@ class Gastocontroller extends Controller
      */
     public function index()
     {
+        
         //
         $gastos = Gasto::get();
         return view('gasto.index', ['gastos' => $gastos]);
