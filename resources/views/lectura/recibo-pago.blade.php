@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+{{-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -16,6 +16,55 @@
             margin: 0 auto;
             padding: 10px;
             border: 1px solid #000;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            margin: 5px 0;
+        }
+        .info p, .details p, .summary p {
+            margin: 2px 0;
+        }
+        .details, .summary {
+            width: 100%;
+        }
+        .details p, .summary p {
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                border: none;
+            }
+        }
+    </style>
+</head> --}}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        /* Estilo general para el recibo */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 78mm; /* Ancho de 78 mm */
+            height: 280mm; /* Largo de 280 mm */
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #000;
+            box-sizing: border-box;
         }
         h1, h2, h3 {
             text-align: center;
