@@ -76,29 +76,34 @@
                                 <!-- Monto -->
                                 <div class="col-lg-4  col-xs-12 mb-3">
                                     <label for="monto" class="form-label">Consumo del mes</label>
-                                    <input id="monto" name="monto" type="text"  class="form-control" required>
+                                    <input readonly id="monto" name="monto" type="text"  class="form-control" required>
                                 </div>
   
                                 <div class="col-lg-4  col-xs-12 mb-3">
                                   <label for="total" class="form-label">Total cobro mensual</label>
-                                  <input id="total" name="total" type="text" class="bg-light form-control border border-5" style="border-color: rgb(2, 2, 30);"   required>
+                                  <input readonly id="total" name="total" type="text" class="form-control" style="border-color: rgb(2, 2, 30);"   required>
                                 </div>
   
                               <h3>Total a pagar</h3>
                               <br>
                               <br>
+
                                 <div class="col-lg-4  col-xs-12 mb-3">
-                                  <label for="saldo" class="form-label">Saldo Anteriorrrrrrrr</label>
-                                  <input id="saldo" name="saldo" type="text" class="form-control">
+                                  <label for="saldo" class="form-label">Saldo Anterior</label>
+                                  <input id="saldo" name="saldo" type="text" class="form-control" readonly>
                               </div>
                               <div class="col-lg-4  col-xs-12 mb-3">
                                   <label for="abono" class="form-label">Abono</label>
                                   <input id="abono" name="abono" type="text" class="form-control">
                               </div>
                               <div class="col-lg-4  col-xs-12 mb-3">
-                                  <label for="saldo_actual" class="form-label">Saldo actual</label>
-                                  <input id="saldo_actual" name="saldo_actual" type="text" class="form-control" disabled>
-                              </div>
+                                <label for="saldo_actual_fijo" class="form-label">Saldo actual</label>
+                                <input id="saldo_actual_fijo" name="saldo_actual_fijo" type="text" class="form-control" readonly>
+                            </div> 
+                            {{-- <label for="saldo_actual" class="form-label">Saldo actual - Abono</label>
+                              <div class="col-lg-6  col-xs-12 mb-3"> --}}
+                                  <input id="saldo_actual" name="saldo_actual" type="hidden" class="form-control" readonly>
+                              {{-- </div> --}}
                               
                              
                              
@@ -166,8 +171,11 @@
   
                   if (!isNaN(saldoAnterior) && !isNaN(actualLectura) ) {
                           var resultado = (saldoAnterior + actualLectura) - (abono ? abono : 0) ;
+
+                          var resultado_fijo = (saldoAnterior + actualLectura);
                      
                           $('#saldo_actual').val(resultado);
+                          $('#saldo_actual_fijo').val(resultado_fijo);
                 
               }
                 
@@ -199,13 +207,14 @@
                 var saldoAnterior = parseFloat($('#saldo').val()); 
                   var actualLectura = parseFloat($('#total').val()); 
                   var abono = parseFloat($('#abono').val()); ;
-  
+                  
                 
                 
   
                   if (!isNaN(saldoAnterior) && !isNaN(actualLectura) ) {
                           var resultados = (saldoAnterior + actualLectura) - (abono ? abono : 0) ;
-                     
+                          var resultado_fijo = (saldoAnterior + actualLectura);
+                          $('#saldo_actual_fijo').val(resultado_fijo);
                           $('#saldo_actual').val(resultados);
                 
                   }

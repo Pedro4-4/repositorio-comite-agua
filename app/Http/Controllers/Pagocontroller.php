@@ -44,32 +44,38 @@ class PagoController extends Controller
         if($monto_deuda > 0 && $monto > 0 && $request->abono > 0 ){
             $lecturas = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->orderBy('id','desc')->get();
             
-            foreach ($lecturas as $lectura) {
+            foreach ($lecturas as $lecturaR) {
                 Log::debug('Este es un mensaje de log en Laravel', [
-                    'lectura_id' => $lectura->id,
+                    'lectura_id' => $lecturaR->id,
                     'monto' => $monto
                 ]);
-                if($lectura->saldo > 0){
-                    if($monto >= $lectura->saldo){
-                        $lectura->estado = 1;
-                        $monto = $monto - $lectura->saldo;
-                        $lectura->abono = $lectura->saldo;
-                        $lectura->saldo = 0;
-                        $lectura->save();
+                if($lecturaR->saldo > 0){
+                    if($monto >= $lecturaR->saldo){
+                        $lecturaR->estado = 1;
+                        $monto = $monto - $lecturaR->saldo;
+                        $lecturaR->abono = $lecturaR->saldo;
+                        $lecturaR->saldo = 0;
+                        $lecturaR->save();
                         Log::debug('devbig', [                      
                             'monto ddd' => $monto
                         ]);
                     }else{
-                        $lectura->saldo = $lectura->saldo - $monto;
-                        $lectura->abono = $monto;
-                        $lectura->estado = 0;
-                        $lectura->save();
+                        $lecturaR->saldo = $lecturaR->saldo - $monto;
+                        $lecturaR->abono = $monto;
+                        $lecturaR->estado = 0;
+                        $lecturaR->save();
                         $monto = 0;
                         break;
                     }                 
                 }
             }
-        }      
-        return redirect('/lecturas');
+        }   
+        return view('lectura.recibo-pago', [
+                'lectura' => $lectura,
+                'monto_deuda' => $monto_deuda - $lectura->total ,
+                'saldo_actual_fijo' => $monto_deuda  ,
+                'abono' => $request->abono,
+            ]);   
+        // return redirect('/lecturas');
     }
 }

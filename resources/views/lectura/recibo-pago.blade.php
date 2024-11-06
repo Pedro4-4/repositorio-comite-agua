@@ -83,8 +83,11 @@
             <p><span>Lectura Anterior</span><span>{{$lectura->lectura_anterior}} m³</span></p>
             <p><span>Consumo de Agua:</span><span>{{$lectura->monto}} m³</span></p>
             <p><span>Cobro mensual:</span><span> Q{{ number_format($lectura->total, 2) }} </span></p>
-
-
+            @if($monto_deuda > 0 )
+            <p><span>Saldo acumulado</span><span>Q{{ number_format($monto_deuda, 2) }}</span></p>
+            @endif  
+            <span>{{ $lectura->$monto_deuda }}</span>
+    
         @else
             <p><span>Canon Mensual:</span><span>{{$lectura->canon_mensual}} m³</span></p>
 
@@ -93,11 +96,13 @@
     </div>
 
     
-    <div class="summary">
+    <div class="summary">   
         {{-- <h2 style="margin-top: 30px;" ><span><strong>Total a Pagar:</strong></span><span><strong>Q{{ $cliente->contadores->first()->lecturas_sum ? $cliente->contadores->first()->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
         {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong>Q{{$lectura->contador ? $lectura->contador->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
         {{-- <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong>Q{{$lectura->contador ? $lectura->contador->lecturas_sum->saldo : 0 }}</strong></span></h2> --}}
-    
+        <h2 style="margin-top: 30px;"><span><strong>Total a Pagar:</strong></span><span><strong> Q{{ number_format($saldo_actual_fijo, 2) }}</strong></span></h2>
+        <h3 style="margin-top: 30px;"><span><strong>Total Abonado:</strong></span><span><strong> Q{{ number_format($abono, 2) }}</strong></span></h3>
+        
     </div>
 
     <p></p>

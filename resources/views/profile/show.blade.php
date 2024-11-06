@@ -94,7 +94,8 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  @foreach ($cliente->contadores->first()->lecturas as $lectura)
+                                
+                                  @foreach ($lecturas as $lectura)
                                       <tr>
                                           <td>{{ $lectura->id }}</td>
                                           {{-- <td>{{ $lectura->precio->monto }}</td> --}}

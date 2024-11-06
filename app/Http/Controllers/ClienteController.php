@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Sector;
 use App\Models\Cliente;
+use App\Models\Lectura;
 use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
@@ -43,7 +44,7 @@ class ClienteController extends Controller
             'observacion' => $request->observacion,
             
         ]);
-        return redirect('/clientes');
+        return redirect('/contador');
     }
 
     /**
@@ -54,7 +55,7 @@ class ClienteController extends Controller
         //
         $cliente = cliente::find($id);
         $sectores = Sector::get();
-
+        $lecturas = Lectura::where('contador_id', $cliente->contadores->first()->id)->orderBy('id', 'desc')->get();
         // Verificar si el cliente fue encontrado
         if (!$cliente) {
             return redirect('/clientes')->with('error', 'cliente no encontrado.');
@@ -62,7 +63,7 @@ class ClienteController extends Controller
 
         // Devolver la vista con el cliente encontrado
         // return view('profile.show', compact('cliente'));
-        return view('profile.show', ['cliente' => $cliente,'sectores' => $sectores]);
+        return view('profile.show', ['cliente' => $cliente,'sectores' => $sectores, 'lecturas' => $lecturas ]);
     }
 
     /**

@@ -68,7 +68,9 @@
                                         <td>{{ $cliente->dpi }}</td>
                                         <td>{{ $cliente->telefono }}</td>
                                         <td>{{ $cliente->contadores->first() ? $cliente->contadores->first()->sector->nombre : 'No tiene Sector/contador' }}</td>
-                                        <td>{{ $cliente->contadores->first()->lecturas_sum ? $cliente->contadores->first()->lecturas_sum->saldo: 0 }}</td>
+                                        {{-- <td>{{ $cliente->contadores->first()->lecturas_sum ? $cliente->contadores->first()->lecturas_sum->saldo: 0 }}</td> --}}
+                                            <td>{{ $cliente->contadores->first()->lecturas_sum ? $cliente->contadores->first()->lecturas_sum->saldo : 0 }}</td>
+                                        
                                         <td>{{ $cliente->observacion }}</td>
                                         <td>{{ $cliente->created_at->format('d/m/Y') }}</td>
                                         <td class="text-center">
