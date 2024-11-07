@@ -168,7 +168,7 @@
 
     window.onafterprint = function() {
             // Redirigir a la página específica después de imprimir
-            window.location.href = "{{ url('/lecturas') }}";
+           
         };
 
         // Función para iniciar la impresión cuando la página se carga
