@@ -173,7 +173,9 @@
 
         // Función para iniciar la impresión cuando la página se carga
         window.onload = function() {
+        setTimeout(function() {
             window.print();
-        };
+        }, 3000); // Retraso de 1000 ms (1 segundo)
+    };
 </script>
 </html>
