@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/report', [ReporteController::class, 'index'])->name('reporte.index');
     Route::get('/report-financieros', [ReporteController::class, 'getReporteFinanciero'])->name('reporte.financiero');
     Route::get('/report-consumos', [ReporteController::class, 'getReporteConsumo'])->name('reporte.consumo');
+    Route::post('/report-consumos', [ReporteController::class, 'postReporteConsumo'])->name('reporte.consumo');
     Route::get('/report-usuarios', [ReporteController::class, 'getReporteUsuario'])->name('reporte.usuario');
     Route::get('/report-morosos', [ReporteController::class, 'getReporteMoroso'])->name('reporte.moroso');
 

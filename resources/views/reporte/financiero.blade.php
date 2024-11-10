@@ -17,19 +17,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Septiembre</td>
-                        <td>50</td>
-                        <td>Q 5,000</td>
-                    </tr>
-                    <tr>
-                        <td>Agosto</td>
-                        <td>48</td>
-                        <td>Q 4,800</td>
-                    </tr>
                     <tr class="fw-bold">
                         <td colspan="2">Total de Ingresos</td>
-                        <td>Q 9,800</td>
+                        <td>{{$totalIngresos}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -42,24 +32,15 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th>Mes</th>
-                        <th>Descripción del Gasto</th>
+                        <th>Descripción</th>
                         <th>Monto (Q)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Septiembre</td>
-                        <td>Reparación de tuberías</td>
-                        <td>Q 1,200</td>
-                    </tr>
-                    <tr>
-                        <td>Agosto</td>
-                        <td>Mantenimiento general</td>
-                        <td>Q 1,000</td>
-                    </tr>
+                 
                     <tr class="fw-bold">
                         <td colspan="2">Total de Gastos</td>
-                        <td>Q 2,200</td>
+                        <td>{{$totalGastos}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -78,9 +59,9 @@
                 </thead>
                 <tbody>
                     <tr class="fw-bold">
-                        <td>Q 9,800</td>
-                        <td>Q 2,200</td>
-                        <td>Q 7,600</td>
+                        <td>{{$totalIngresos }}</td>
+                        <td>{{$totalGastos}}</td>
+                        <td>{{$totalIngresos - $totalGastos}}</td>
                     </tr>
                 </tbody>
             </table>

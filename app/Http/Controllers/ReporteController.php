@@ -38,6 +38,30 @@ class ReporteController extends Controller
 
         return view('reporte.moroso');
     }
+    public function postReporteMoroso(Request $request){
+
+
+        // $rangoFechas = $startDate->translatedFormat('j \\d\\e F') . ' al ' . $endDate->translatedFormat('j \\d\\e F');
+
+        $totalIngresos = Pago::whereBetween('created_at', [
+            Carbon::parse($request->startDate)->startOfDay(),
+            Carbon::parse($request->endDate)->endOfDay()
+        ])
+        ->sum('abono');
+        $totalGastos = Gasto::whereBetween('created_at', [
+            Carbon::parse($request->startDate)->startOfDay(),
+            Carbon::parse($request->endDate)->endOfDay()
+        ])
+        ->sum('monto');
+
+         $totalClientes = Cliente::whereBetween('created_at', [
+            Carbon::parse($request->startDate)->startOfDay(),
+            Carbon::parse($request->endDate)->endOfDay()
+        ])
+        ->count();
+
+        return view('reporte-financiero', compact('totalIngresos', 'totalGastos', 'totalClientes'));
+    }
 
 
     public function showReporteFinanciero(Request $request)
