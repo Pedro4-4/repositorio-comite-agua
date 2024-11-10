@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Lectura;
 use App\Models\Contador;
 use App\Models\Cliente;
+use App\Models\Pago;
+use App\Models\PagoLectura;
 use App\Models\Precio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -54,14 +56,32 @@ class LecturaController extends Controller
         $lectura->saldo = $request->abono >= $request->total ? 0 : $request->total - $request->abono;
         $lectura->abono = $lectura->saldo == 0 ? $request->total : $request->abono;
         $lectura->nota = $request->nota;
-        $lectura->estado = $request->tipo_recibo;
+        $lectura->estado = $request->abono >= $request->total ? 1 : 0;
         $lectura->total = $request->total;
         $lectura->save();
         $monto_deuda = Lectura::where('contador_id', $request->contador)->where('estado', 0)->sum('saldo');
         $monto = $lectura->saldo == 0 ?  $request->abono - $request->total : 0;
 
+        if( $request->abono > 0) {
+            $pago = new Pago;
+            $pago->descripcion = 'PAGO EN REGISTRO DE LECTURA';
+            $pago->precio = $request->precio_id;
+            $pago->monto = $request->monto;
+            $pago->cobro_mensual = $request->total;
+            $pago->saldo_anterior = $request->saldo;
+            $pago->abono = $request->abono;
+            $pago->saldo_actual_fijo = $request->saldo_actual_fijo;
+            $pago->saldo_actual = $request->saldo_actual;
+            $pago->save();
+        }
 
-
+        if ($monto_deuda == 0){
+            $pagoLectura = new PagoLectura;
+            $pagoLectura->lectura_id = $lectura->id;
+            $pagoLectura->pago_id = $pago->id;
+            $pagoLectura->monto = $monto;
+            $pagoLectura->save();
+        }
         if ($monto_deuda > 0 && $monto > 0 && $request->abono > 0) {
             $lecturas = Lectura::where('contador_id', $request->contador)->where('estado', 0)->orderBy('id', 'desc')->get();
 
@@ -79,15 +99,26 @@ class LecturaController extends Controller
                         $lecturaR->abono = $lecturaR->saldo;
                         $lecturaR->saldo = 0;
                         $lecturaR->save();
-                        Log::debug('devbig', [                      
-                            'monto ddd' => $monto
-                        ]);
+
+                        $pagoLectura = new PagoLectura;
+                        $pagoLectura->lectura_id = $lecturaR->id;
+                        $pagoLectura->pago_id = $pago->id;
+                        $pagoLectura->monto = $lecturaR->saldo;
+                        $pagoLectura->save();
+                        
                     }else{
                         $lecturaR->saldo = $lecturaR->saldo - $monto;
-                        $lecturaR->abono = $monto;
+                        $lecturaR->abono = $lecturaR->saldo;
                         $lecturaR->estado = 0;
                         $lecturaR->save();
                         $monto = 0;
+
+                        $pagoLectura = new PagoLectura;
+                        $pagoLectura->lectura_id = $lecturaR->id;
+                        $pagoLectura->pago_id = $pago->id;
+                        $pagoLectura->monto = $lecturaR->saldo;
+                        $pagoLectura->save();
+
                         break;
                     }                 
                 }
@@ -134,9 +165,6 @@ class LecturaController extends Controller
         $lectura = Lectura::find($id);
         $cliente = $lectura->contador->cliente;
         $monto_deuda = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->sum('saldo');
-
-
-
         return view('lectura.recibo-cobro', ['lectura' => $lectura, 'cliente' => $cliente, 'monto_deuda' => $monto_deuda]);
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lectura;
+use App\Models\Gasto;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class ReporteController extends Controller
 {
     
@@ -45,7 +47,7 @@ class ReporteController extends Controller
     // Lógica para convertir la fecha y filtrar por el mes o día en tu base de datos
     // Supongamos que solo estás filtrando por el mes:
 
-    $ingresos = Ingreso::whereMonth('fecha', Carbon::parse($fechaSeleccionada)->month)->get();
+    $ingresos = Lectura::whereMonth('fecha', Carbon::parse($fechaSeleccionada)->month)->get();
     $gastos = Gasto::whereMonth('fecha', Carbon::parse($fechaSeleccionada)->month)->get();
 
     $totalIngresos = $ingresos->sum('ingreso_total');

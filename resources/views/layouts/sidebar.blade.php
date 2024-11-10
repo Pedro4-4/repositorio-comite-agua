@@ -68,7 +68,7 @@
                 </li>
                 <li class="nav-item mb-3">
                     <a href="{{ url('/usuarios_mora') }}" class="nav-link text-white d-flex align-items-center p-2 rounded">
-                        <i class="bi bi-life-preserver me-2"></i> Usuarios en mora
+                        <i class="bi bi-life-preserver me-2"></i> Usuarios en moraa
                     </a>
                 </li>
             </ul>

@@ -12,19 +12,20 @@ class Pago extends Model
     protected $table = 'pago'; // Nombre de la tabla
 
     protected $fillable = [
-        'descripcion',
+        'descripcion',      
+        'monto',
+        'cobro_mensual',
+        'saldo_anterior',
         'abono',
-        'lectura_id',
-        'cliente'
+        'saldo_actual_fijo',
+        'saldo_actual'
+
+
     ];
 
     // Si el modelo tiene timestamps automáticos
     public $timestamps = true;
 
-    public function lectura()
-    {
-        return $this->belongsTo(Lectura::class, 'lectura_id');
-    }
-
+    
 
 }

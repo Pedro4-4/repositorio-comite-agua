@@ -245,6 +245,7 @@
                           type: 'GET',
                           dataType: 'json',
                           success: function(data) {
+                            console.log(data)
                               $('#contador').empty(); // Limpiar el segundo select
                               $('#contador').append('<option value="">Seleccione un contador</option>'); 
                               $.each(data, function(key, value) {

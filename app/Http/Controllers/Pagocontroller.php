@@ -6,7 +6,7 @@ use App\Models\Lectura;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\PagoLectura;
 
 class PagoController extends Controller
 
@@ -42,6 +42,14 @@ class PagoController extends Controller
         $monto = $request->abono;
         $monto_deuda = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->sum('saldo');
 
+        if( $request->abono > 0) {
+            $pago = new Pago;
+            $pago->descripcion = 'PAGO EN EXTERNO DE LECTURA';  
+            $pago->abono = $request->abono;           
+            $pago->save();
+        }
+
+
         if($monto_deuda > 0 && $monto > 0 && $request->abono > 0 ){
             $lecturas = Lectura::where('contador_id', $lectura->contador->id)->where('estado', 0)->orderBy('id','desc')->get();
             
@@ -57,15 +65,26 @@ class PagoController extends Controller
                         $lecturaR->abono = $lecturaR->saldo;
                         $lecturaR->saldo = 0;
                         $lecturaR->save();
-                        Log::debug('devbig', [                      
-                            'monto ddd' => $monto
-                        ]);
+                        
+                        $pagoLectura = new PagoLectura;
+                        $pagoLectura->lectura_id = $lecturaR->id;
+                        $pagoLectura->pago_id = $pago->id;
+                        $pagoLectura->monto = $lecturaR->abono ;
+                        $pagoLectura->save();
+
                     }else{
                         $lecturaR->saldo = $lecturaR->saldo - $monto;
                         $lecturaR->abono = $monto;
                         $lecturaR->estado = 0;
                         $lecturaR->save();
                         $monto = 0;
+
+                        $pagoLectura = new PagoLectura;
+                        $pagoLectura->lectura_id = $lecturaR->id;
+                        $pagoLectura->pago_id = $pago->id;
+                        $pagoLectura->monto = $lecturaR->abono;
+                        $pagoLectura->save();
+
                         break;
                     }                 
                 }
